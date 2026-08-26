@@ -1,0 +1,42 @@
+{
+  "name": "zscript-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Discord script satış işletim botu",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate deploy",
+    "prisma:dev": "prisma migrate dev",
+    "check:snowflakes": "node scripts/check-snowflakes.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.16.2",
+    "bullmq": "^5.58.5",
+    "discord.js": "^14.22.1",
+    "dotenv": "^16.6.1",
+    "ioredis": "^5.7.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.34.0",
+    "@types/node": "^24.3.0",
+    "eslint": "^9.34.0",
+    "prisma": "^6.16.2",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0",
+    "vitest": "^3.2.4"
+  }
+}
