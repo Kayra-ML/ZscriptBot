@@ -18,6 +18,8 @@ export function commandPayload() {
       .setDefaultMemberPermissions(ADMIN_ONLY)
       .addStringOption((o) => o.setName("ad").setDescription("Urun adi").setRequired(true))
       .addNumberOption((o) => o.setName("fiyat").setDescription("Liste fiyati").setRequired(true))
+      .addIntegerOption((o) => o.setName("stok").setDescription("Mevcut stok").setRequired(false))
+      .addIntegerOption((o) => o.setName("gün").setDescription("Kac gunluk? (Bos=Suresiz)").setRequired(false))
       .addStringOption((o) => o.setName("aciklama").setDescription("Aciklama"))
       .addStringOption((o) => o.setName("surum").setDescription("Surum"))
       .addRoleOption((o) => o.setName("rol").setDescription("Urun rolu"))
@@ -38,6 +40,18 @@ export function commandPayload() {
             { name: "Arsiv", value: "ARCHIVED" },
           ),
       )
+      .toJSON(),
+    new SlashCommandBuilder()
+      .setName("ürün-sil")
+      .setDescription("Urunu sil veya arsivle")
+      .setDefaultMemberPermissions(ADMIN_ONLY)
+      .addStringOption((o) => o.setName("id").setDescription("Urun UUID").setRequired(true))
+      .toJSON(),
+    new SlashCommandBuilder()
+      .setName("sohbet-temizle")
+      .setDescription("Kanaldaki mesajlari temizler (Son 14 gun)")
+      .setDefaultMemberPermissions(ADMIN_ONLY)
+      .addIntegerOption((o) => o.setName("adet").setDescription("Silinecek mesaj sayisi (Max 100)").setRequired(false))
       .toJSON(),
     new SlashCommandBuilder()
       .setName("abone-ver")

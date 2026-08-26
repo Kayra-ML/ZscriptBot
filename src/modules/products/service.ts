@@ -20,6 +20,8 @@ export async function createProduct(input: {
   listPrice: string;
   version?: string;
   roleId?: string | null;
+  stock?: number | null;
+  durationDays?: number | null;
 }): Promise<Product> {
   const price = Number(input.listPrice.replace(",", "."));
   if (!Number.isFinite(price) || price < 0) throw new DomainError("Gecersiz fiyat.");
@@ -31,8 +33,38 @@ export async function createProduct(input: {
       listPrice: price,
       version: input.version?.trim() || "1.0",
       roleId: input.roleId ?? null,
+      stock: input.stock ?? null,
+      durationDays: input.durationDays ?? null,
     },
   });
+}
+
+export async function deleteProduct(id: string, guildId: string) {
+  const product = await prisma.product.findFirst({
+    where: { id, guildId },
+    include: {
+      _count: {
+        select: { orders: true, licenses: true, subscriptions: true },
+      },
+    },
+  });
+  if (!product) throw new DomainError("Urun bulunamadi.");
+
+  const hasSales =
+    product._count.orders > 0 ||
+    product._count.licenses > 0 ||
+    product._count.subscriptions > 0;
+
+  if (hasSales) {
+    const updated = await prisma.product.update({
+      where: { id },
+      data: { status: "ARCHIVED" },
+    });
+    return { status: "ARCHIVED", product: updated };
+  } else {
+    const deleted = await prisma.product.delete({ where: { id } });
+    return { status: "DELETED", product: deleted };
+  }
 }
 
 export async function setProductStatus(id: string, guildId: string, status: ProductStatus) {

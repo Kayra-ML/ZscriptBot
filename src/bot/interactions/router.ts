@@ -14,10 +14,12 @@ import {
   handleAboneIptal,
   handleAboneUzat,
   handleAboneVer,
-  handleSiparisIade,
   handleSiparisIptal,
+  handleSiparisIade,
   handleUrunDurum,
   handleUrunEkle,
+  handleUrunSil,
+  handleSohbetTemizle,
 } from "./commands/admin";
 import {
   handleSetupChannelSelect,
@@ -95,6 +97,12 @@ export async function routeInteraction(interaction: Interaction) {
         return;
       case "ürün-durum":
         await handleUrunDurum(interaction);
+        return;
+      case "ürün-sil":
+        await handleUrunSil(interaction);
+        return;
+      case "sohbet-temizle":
+        await handleSohbetTemizle(interaction);
         return;
       case "abone-ver":
         await handleAboneVer(interaction);

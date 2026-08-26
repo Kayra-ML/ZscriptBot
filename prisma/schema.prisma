@@ -182,10 +182,12 @@ model Product {
   description String        @default("")
   listPrice   Decimal       @map("list_price") @db.Decimal(12, 2)
   status      ProductStatus @default(ACTIVE)
-  version     String        @default("1.0")
-  roleId      String?       @map("role_id")
-  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt   DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  version      String        @default("1.0")
+  roleId       String?       @map("role_id")
+  stock        Int?          @map("stock")
+  durationDays Int?          @map("duration_days")
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
 
   guild         Guild          @relation(fields: [guildId], references: [id], onDelete: Cascade)
   tickets       Ticket[]
