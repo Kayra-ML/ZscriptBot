@@ -3,7 +3,7 @@ services:
     build: .
     env_file: .env
     environment:
-      DATABASE_URL: postgresql://zscript:Zscr!pt_P@ss_xK9m2026@postgres:5432/zscript
+      DATABASE_URL: postgresql://zscript:your_secure_password@postgres:5432/zscript
       REDIS_URL: redis://redis:6379
     depends_on:
       postgres:
@@ -16,7 +16,7 @@ services:
     image: postgres:16-alpine
     environment:
       POSTGRES_USER: zscript
-      POSTGRES_PASSWORD: Zscr!pt_P@ss_xK9m2026
+      POSTGRES_PASSWORD: your_secure_password
       POSTGRES_DB: zscript
     volumes:
       - pgdata:/var/lib/postgresql/data
